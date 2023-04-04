@@ -33,9 +33,6 @@ st.title('Cotações de Moedas')
 # Título da seção para cotação de uma única moeda
 st.header('Cotação de uma Moeda')
 
-# Escreve uma instrução para o usuário
-st.write('Obtenha a cotação para a moeda selecionada na data especificada.')
-
 # Obtém a lista de moedas disponíveis na API do Banco Central do Brasil
 moedas_disponiveis = obter_moedas()
 
@@ -73,11 +70,8 @@ else:
 # Cabeçalho da seção para obter a cotação de diversas moedas
 st.header('Cotação para Diversas Moedas')
 
-# Instrução para o usuário
-st.write('Obtenha a cotação para diversas moedas carregando um CSV com as moedas na primeira coluna.')
-
-# Armazena o arquivo que o usuário carregou
-arquivo = st.file_uploader('Selecione um arquivo do Excel:', type='xlsx')
+# Menu com a lista de moedas para o usuário escolher
+moedas_escolhidas = st.multiselect('Selecione as moedas:', options=moedas_disponiveis)
 
 # Cria duas colunas
 col1, col2 = st.columns(2)
@@ -98,36 +92,27 @@ with col2:
     data_final_api = formatar_data_api(data_final)
 
 if st.button('Obter Cotações'):
-    if arquivo:
-        try:
-            # Lê o arquivo CSV
-            df_moedas = pd.read_excel(arquivo)
+    try:
+        # Obtém as cotações das moedas especificadas no intervalo de datas solicitado
+        cotacoes = obter_cotacoes(moedas_escolhidas, data_inicial_api, data_final_api)
 
-            # Obtém uma lista com as moedas da primeira coluna
-            moedas = list(df_moedas['Moedas'])
+        # Cria um dataframe com as cotações das moedas
+        df_cotacoes = pd.DataFrame(
+            data=cotacoes,
+            columns=['Moeda', 'Data', 'Cotação (R$)']
+        )
 
-            # Obtém as cotações das moedas especificadas no intervalo de datas solicitado
-            cotacoes = obter_cotacoes(moedas, data_inicial_api, data_final_api)
+        st.write(df_cotacoes)
 
-            # Cria um dataframe com as cotações das moedas
-            df_cotacoes = pd.DataFrame(
-                data=cotacoes,
-                columns=['Moeda', 'Data', 'Cotação (R$)']
-            )
+        # Obtém um CSV a partir do df
+        csv = df_cotacoes.to_csv().encode('utf-8')
 
-            st.write(df_cotacoes)
+        st.download_button(
+            label='Baixar CSV',
+            data=csv,
+            file_name='cotacoes.csv',
+            mime='text/csv'
+        )
 
-            # Obtém um CSV a partir do df
-            csv = df_cotacoes.to_csv().encode('utf-8')
-
-            st.download_button(
-                label='Baixar CSV',
-                data=csv,
-                file_name='cotacoes.csv',
-                mime='text/csv'
-            )
-
-        except:
-            st.error('Ocorreu um erro durante o processamento dos dados.')
-    else:
-        st.write('Nenhum arquivo foi carreagado.')
+    except:
+        st.error('Ocorreu um erro durante o processamento dos dados.')

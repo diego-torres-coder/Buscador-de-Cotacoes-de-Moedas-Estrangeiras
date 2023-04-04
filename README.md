@@ -4,11 +4,11 @@ Este projeto usa o **Streamlit** — um frameword do Python para construção de
 
 Com esta aplicação o usuário pode buscar a cotação de uma moeda em uma data específica, tal como mostrado na captura de tela a seguir:
 
-![Captura de tela da aplicação para busca da cotação de uma moeda](/buscador-cotacoes-simples-streamlit.png "Obtendo a cotação de uma moeda em uma data")
+![Captura de tela da aplicação para busca da cotação de uma moeda](/buscador-cotacao-unica.png "Obtendo a cotação de uma moeda em uma data")
 
-Caso o usuário deseje obter as cotações de diversas moedas em um intervalo de datas, ele pode carregar um arquivo CSV que contenha os símbolos das moedas para as quais ele deseja obter as cotações e definir o intervalo de datas nos campos de data inicial e final. Veja na captura de tela abaixo o resultado deste tipo de operação:
+Caso o usuário deseje obter as cotações de diversas moedas em um intervalo de datas, ele pode os símbolos das moedas para as quais ele deseja obter as cotações e definir o intervalo de datas nos campos de data inicial e final. Veja na captura de tela abaixo o resultado deste tipo de operação:
 
-![Captura de tela da aplicação para busca das cotações de diversas moedas](/buscador-cotacoes-streamlit.png "Obtendo cotações de diversas moedas")
+![Captura de tela da aplicação para busca das cotações de diversas moedas](/buscador-cotacao-multipla.png "Obtendo cotações de diversas moedas")
 
 Note que o usuário também tem a possibilidade de baixar um arquivo CSV com as cotações das moedas para o intervalo de datas especificado.
 
