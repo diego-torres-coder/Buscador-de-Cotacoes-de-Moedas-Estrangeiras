@@ -77,7 +77,7 @@ st.header('Cotação para Diversas Moedas')
 st.write('Obtenha a cotação para diversas moedas carregando um CSV com as moedas na primeira coluna.')
 
 # Armazena o arquivo que o usuário carregou
-arquivo = st.file_uploader('Selecione um arquivo CSV:', type='csv')
+arquivo = st.file_uploader('Selecione um arquivo do Excel:', type='xlsx')
 
 # Cria duas colunas
 col1, col2 = st.columns(2)
@@ -101,7 +101,7 @@ if st.button('Obter Cotações'):
     if arquivo:
         try:
             # Lê o arquivo CSV
-            df_moedas = pd.read_csv(arquivo)
+            df_moedas = pd.read_excel(arquivo)
 
             # Obtém uma lista com as moedas da primeira coluna
             moedas = list(df_moedas['Moedas'])
