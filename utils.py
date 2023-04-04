@@ -1,4 +1,6 @@
 from datetime import datetime as dt
+from datetime import date
+from datetime import timedelta
 import pandas as pd
 import requests
 
@@ -14,6 +16,11 @@ def formatar_data(data):
 def formatar_data_api(data):
     # Converte a data numa string com a seguinte formatação: mm/dd/aaaa
     return data.strftime('%m-%d-%Y')
+
+
+def obter_maior_data():
+    '''Retorna a data do dia anterior'''
+    return date.today() - timedelta(days=1)
 
 
 def obter_moedas():
